@@ -35,21 +35,31 @@ def create_gemfile(name) # Now let's create the gemfile with all the gems we nee
 end
 
 def git_init #let's git init! :) simple as that ! 
-   # Dir.chdir "#{name}"
-    system("git init")
+    system ("git init")
 end
 
-# # def env_file #creation of the .env file, then add it in the gitignore file
-# #     Dir.chdir "#{name}"
-# #     File.open ("env", "w")
-# #     file.close
-# # end
+def env_file(name) #creation of the .env file and .gitignore and readme
+    File.open(".env","w"){|file| file.puts ""}
+    File.open(".gitignore","w"){|file| file.puts ".env"}
+    File.open("README.md","w"){|file| file.puts "This is a Ruby Program !"}
+end
+
+def create_lib #says it all
+    Dir.mkdir("lib")
+end
+
+def rspec_init #initalise rspec baby! 
+    system ("rspec --init")
+end
 
 def perform #one method to link them all
     create_folder_all
     name = get_folder_name
     create_gemfile(name)
-    system("git init") #initialise git baby !
+    git_init
+    env_file(name)
+    create_lib
+    rspec_init
 
 end 
 
